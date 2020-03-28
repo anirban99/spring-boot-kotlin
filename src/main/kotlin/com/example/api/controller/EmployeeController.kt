@@ -18,16 +18,16 @@ class EmployeeController(private val employeeRepository: EmployeeRepository) {
 
     @GetMapping("/home")
     fun home(): String? {
-        return "<h1>Welcome</h1>"
+        return "Welcome"
     }
 
     @GetMapping("/user")
     fun user(): String? {
-        return "<h1>Welcome User</h1>"
+        return "Welcome User"
     }
 
     @GetMapping("/admin")
     fun admin(): String? {
-        return "<h1>Welcome Admin</h1>"
+        return "Welcome Admin"
     }
 }
