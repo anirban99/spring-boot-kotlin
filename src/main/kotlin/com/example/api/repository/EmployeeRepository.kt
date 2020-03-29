@@ -13,6 +13,6 @@ interface EmployeeRepository : JpaRepository<Employee, Long> {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     fun save(employee: Employee): Employee
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    fun delete(id: Long)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    override fun delete(employee: Employee)
 }
