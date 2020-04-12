@@ -45,19 +45,4 @@ class EmployeeController(private val employeeRepository: EmployeeRepository) {
             ResponseEntity.ok(employee)
         }.orElse(ResponseEntity.notFound().build())
     }
-
-    @GetMapping("/home")
-    fun home(): String? {
-        return "Welcome"
-    }
-
-    @GetMapping("/user")
-    fun user(): String? {
-        return "Welcome User"
-    }
-
-    @GetMapping("/admin")
-    fun admin(): String? {
-        return "Welcome Admin"
-    }
 }
