@@ -3,6 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/employees
     username: postgres
     password: pass
+#  flyway:
+#    enabled: false
   jpa:
     hibernate:
       # Hibernate ddl auto (create, create-drop, validate, update)

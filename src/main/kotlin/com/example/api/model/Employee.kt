@@ -14,11 +14,11 @@ data class Employee (
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
         @Column(name = "first_name", nullable = false)
-        var firstName: String = "",
+        val firstName: String = "",
         @Column(name = "middle_name", nullable = true)
-        var middleName: String? = "",
+        val middleName: String? = null,
         @Column(name = "last_name", nullable = false)
-        var lastName: String = "",
+        val lastName: String = "",
         @Column(name = "email_address", nullable = false)
-        var emailId: String = ""
+        val emailId: String = ""
 )
