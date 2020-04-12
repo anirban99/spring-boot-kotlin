@@ -26,11 +26,23 @@ class EmployeeController(private val employeeRepository: EmployeeRepository) {
     @PostMapping("/employees")
     fun createEmployee(@Valid @RequestBody employee: Employee): Employee = employeeRepository.save(employee)
 
+    @PutMapping("/employees/{id}")
+    fun updateEmployeeById(@PathVariable("id") employeeId: Long, @Valid @RequestBody employeeDetails: Employee) : ResponseEntity<Employee> {
+        return employeeRepository.findById(employeeId).map {
+            val updatedEmployeeDetails : Employee = it.copy(
+                    firstName = employeeDetails.firstName,
+                    lastName = employeeDetails.lastName,
+                    emailId = employeeDetails.emailId
+            )
+            ResponseEntity.ok().body(employeeRepository.save(updatedEmployeeDetails))
+        }.orElse(ResponseEntity.notFound().build())
+    }
+
     @DeleteMapping("/employees/{id}")
-    fun deleteEmployeesById(@PathVariable("id") employeeId: Long): ResponseEntity<Void> {
+    fun deleteEmployeesById(@PathVariable("id") employeeId: Long): ResponseEntity<Employee> {
         return employeeRepository.findById(employeeId).map {employee ->
             employeeRepository.delete(employee)
-            ResponseEntity<Void>(HttpStatus.OK)
+            ResponseEntity.ok(employee)
         }.orElse(ResponseEntity.notFound().build())
     }
 
