@@ -8,7 +8,7 @@ spring:
   jpa:
     hibernate:
       # Hibernate ddl auto (create, create-drop, validate, update)
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       # Hibernate Properties
