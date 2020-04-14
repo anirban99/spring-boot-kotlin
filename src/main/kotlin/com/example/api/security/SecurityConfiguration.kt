@@ -36,6 +36,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 .antMatchers(HttpMethod.DELETE, "/api/v1/employees/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/v1/employees/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PATCH, "/api/v1/employees/**").hasRole("ADMIN")
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/").permitAll()
                 .and()
                 .csrf().disable()

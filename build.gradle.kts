@@ -26,6 +26,10 @@ dependencies {
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.flywaydb:flyway-core:6.0.7")
+	// Spring Boot Actuator for Monitoring
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	// Prometheus endpoint extension for Actuator
+	implementation("io.micrometer:micrometer-registry-prometheus")
 }
 
 tasks.withType<KotlinCompile> {
