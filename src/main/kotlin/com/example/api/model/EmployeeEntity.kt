@@ -10,7 +10,7 @@ import javax.persistence.Table
 /** the employee domain entity **/
 @Entity
 @Table(name = "employees")
-data class Employee (
+data class EmployeeEntity (
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long = 0,
         @Column(name = "first_name", nullable = false)

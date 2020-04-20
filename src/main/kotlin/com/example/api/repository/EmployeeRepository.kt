@@ -1,6 +1,6 @@
 package com.example.api.repository
 
-import com.example.api.model.Employee
+import com.example.api.model.EmployeeEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Repository
@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository
 
 @PreAuthorize("hasRole('ROLE_USER')")
 @Repository
-interface EmployeeRepository : JpaRepository<Employee, Long> {
+interface EmployeeRepository : JpaRepository<EmployeeEntity, Long> {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    fun save(employee: Employee): Employee
+    fun save(employeeEntity: EmployeeEntity): EmployeeEntity
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    override fun delete(employee: Employee)
+    override fun delete(employeeEntity: EmployeeEntity)
 }
