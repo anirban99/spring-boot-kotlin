@@ -1,5 +1,6 @@
-package com.example.api.model
+package com.example.api.repository.model
 
+import com.example.api.service.model.Employee
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -7,7 +8,9 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 
-/** the employee domain entity **/
+/**
+ * Represents the database entity for storing the employee details.
+ */
 @Entity
 @Table(name = "employees")
 data class EmployeeEntity (
@@ -21,4 +24,16 @@ data class EmployeeEntity (
         val lastName: String = "",
         @Column(name = "email_address", nullable = false)
         val emailId: String = ""
-)
+) {
+        companion object ModelMapper {
+                fun from(employee: Employee): EmployeeEntity {
+                        return EmployeeEntity(
+                                id = employee.id,
+                                firstName = employee.firstName,
+                                middleName = employee.middleName,
+                                lastName = employee.lastName,
+                                emailId = employee.emailId
+                        )
+                }
+        }
+}

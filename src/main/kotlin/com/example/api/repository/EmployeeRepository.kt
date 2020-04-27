@@ -1,6 +1,6 @@
 package com.example.api.repository
 
-import com.example.api.model.EmployeeEntity
+import com.example.api.repository.model.EmployeeEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Repository
