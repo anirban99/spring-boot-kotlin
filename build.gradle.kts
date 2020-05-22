@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.2.6.RELEASE"
 	id("io.spring.dependency-management") version "1.0.8.RELEASE"
+	id("jacoco")
 	kotlin("jvm") version "1.3.61"
 	kotlin("plugin.spring") version "1.3.61"
 	kotlin("plugin.jpa") version "1.3.61"
@@ -30,6 +31,57 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	// Prometheus endpoint extension for Actuator
 	implementation("io.micrometer:micrometer-registry-prometheus")
+	// Test frameworks
+	testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+//	testImplementation("com.github.javafaker:javafaker:1.0.2")
+}
+
+tasks {
+
+	val extraTestsMatcher = "package/path/to/test/*.class"
+	val extraTest = register<Test>("extraTest") {
+		include(extraTestsMatcher)
+		useJUnitPlatform {}
+	}
+	test {
+		exclude(extraTestsMatcher)
+		finalizedBy(jacocoTestReport)
+		useJUnitPlatform {}
+	}
+
+	build {
+		dependsOn(extraTest)
+	}
+
+	compileKotlin {
+		kotlinOptions.jvmTarget = "1.8"
+	}
+
+	compileTestKotlin {
+		kotlinOptions.jvmTarget = "1.8"
+	}
+
+	jacocoTestCoverageVerification {
+		violationRules {
+			rule { limit { minimum = BigDecimal.valueOf(0.5) } }
+		}
+	}
+
+	jacoco {
+		toolVersion = "0.8.5"
+	}
+
+	jacocoTestReport {
+		reports {
+			xml.isEnabled = true
+			csv.isEnabled = false
+			html.destination = file("$buildDir/reports/jacocoHtml")
+		}
+	}
+
+	check {
+		dependsOn(jacocoTestCoverageVerification)
+	}
 }
 
 tasks.withType<KotlinCompile> {

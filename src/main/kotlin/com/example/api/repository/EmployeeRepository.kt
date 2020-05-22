@@ -1,6 +1,7 @@
 package com.example.api.repository
 
 import com.example.api.repository.model.EmployeeEntity
+import com.example.api.service.model.Employee
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Repository
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Repository
 @PreAuthorize("hasRole('ROLE_USER')")
 @Repository
 interface EmployeeRepository : JpaRepository<EmployeeEntity, Long> {
+
+    override fun findAll(): List<EmployeeEntity>
+    fun findByIdOrNull(employeeId: Long): EmployeeEntity
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     fun save(employeeEntity: EmployeeEntity): EmployeeEntity
