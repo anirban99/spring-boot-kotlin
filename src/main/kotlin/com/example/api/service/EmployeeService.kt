@@ -4,7 +4,6 @@ import com.example.api.exception.EmployeeNotFoundException
 import com.example.api.repository.model.EmployeeEntity
 import com.example.api.repository.EmployeeRepository
 import com.example.api.service.model.Employee
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
@@ -21,17 +20,18 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
     }
 
     fun getEmployeesById(employeeId: Long): Employee {
-        return employeeRepository.findByIdOrNull(employeeId)?.let {
+        return employeeRepository.findById(employeeId).orElse(null)?.let {
             Employee.from(it)
         } ?: throw EmployeeNotFoundException(HttpStatus.NOT_FOUND, "No matching employee was found") //handle exception in controller
     }
 
     fun createEmployee(employee: Employee): Employee {
+        println("employee $employee")
         return Employee.from(employeeRepository.save(EmployeeEntity.from(employee)))
     }
 
     fun updateEmployeeById(employeeId: Long, employee: Employee): Employee {
-        return employeeRepository.findByIdOrNull(employeeId)?.let {
+        return employeeRepository.findById(employeeId).orElse(null)?.let {
             val updatedEmployeeDetails : EmployeeEntity = it.copy(
                     firstName = employee.firstName,
                     middleName = employee.middleName,
@@ -43,7 +43,7 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
     }
 
     fun deleteEmployeesById(employeeId: Long): Employee {
-        return employeeRepository.findByIdOrNull(employeeId)?.let {
+        return employeeRepository.findById(employeeId).orElse(null)?.let {
             employeeRepository.delete(it)
             Employee.from(it)
         } ?: throw EmployeeNotFoundException(HttpStatus.NOT_FOUND, "No matching employee was found")
