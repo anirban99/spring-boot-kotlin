@@ -7,25 +7,28 @@ import com.example.api.service.model.Employee
 
 class EmployeeFaker {
     companion object {
+        private val id = Math.random().toLong()
+        private val emailId = Math.random()
+
         fun fakeEmployee(): Employee {
 //            val javaFaker = Faker()
             return Employee(
-                    id = Math.random().toLong(),
+                    id = id,
                     firstName = "Brock",
                     middleName = "",
                     lastName = "Lesnar",
-                    emailId = "Brock.Lesnar" + Math.random() + "@gmail.com"
+                    emailId = "Brock.Lesnar$emailId@gmail.com"
             )
         }
 
         fun fakeEmployeeEntity(): EmployeeEntity {
 //            val javaFaker = Faker()
             return EmployeeEntity(
-                    id = Math.random().toLong(),
+                    id = id,
                     firstName = "Brock",
                     middleName = "",
                     lastName = "Lesnar",
-                    emailId = "Brock.Lesnar" + Math.random() + "@gmail.com"
+                    emailId = "Brock.Lesnar$emailId@gmail.com"
             )
         }
     }

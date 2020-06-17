@@ -26,7 +26,6 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
     }
 
     fun createEmployee(employee: Employee): Employee {
-        println("employee $employee")
         return Employee.from(employeeRepository.save(EmployeeEntity.from(employee)))
     }
 
