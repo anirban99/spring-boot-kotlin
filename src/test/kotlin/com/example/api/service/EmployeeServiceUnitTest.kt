@@ -56,14 +56,29 @@ class EmployeeServiceUnitTest {
         assertEquals("Lesnar", result.lastName)
         assertEquals("Brock", result.firstName)
     }
-//
-//    @Test
-//    fun `when employee is updated, then it returns the updated employee details`() {
-//
-//    }
-//
-//    @Test
-//    fun `when employee is deleted, then it returns the deleted employee details`() {
-//
-//    }
+
+    @Test
+    fun `given updated employee details, when employee is updated by valid id, then it returns the updated employee details`() {
+        `when`(employeeRepository.findById(id)).doReturn(
+                Optional.of(EmployeeFaker.fakeEmployeeEntity().copy(id = id))
+        )
+        `when`(employeeRepository.save(EmployeeFaker.fakeUpdatedEmployeeEntity().copy(id = id))).doReturn(
+                EmployeeFaker.fakeUpdatedEmployeeEntity().copy(id = id)
+        )
+
+        val result = classUnderTest.updateEmployeeById(id, EmployeeFaker.fakeUpdatedEmployee().copy(id = id))
+        assertEquals("Lesnar", result.lastName)
+        assertEquals("Shawn", result.firstName)
+    }
+
+    @Test
+    fun `given employees, when employee is deleted by id, then it returns the deleted employee details`() {
+        `when`(employeeRepository.findById(id)).doReturn(
+                Optional.of(EmployeeFaker.fakeEmployeeEntity().copy(id = id))
+        )
+        doNothing().`when`(employeeRepository).delete(EmployeeFaker.fakeEmployeeEntity().copy(id = id))
+
+        val result = classUnderTest.deleteEmployeesById(id)
+        assertEquals(id, result.id)
+    }
 }

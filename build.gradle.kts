@@ -64,18 +64,34 @@ tasks {
 	jacocoTestCoverageVerification {
 		violationRules {
 			rule { limit { minimum = BigDecimal.valueOf(0.0) } }
+			rule {
+				enabled = false
+				element = "CLASS"
+				includes = listOf("org.gradle.*")
+
+				limit {
+					counter = "LINE"
+					value = "TOTALCOUNT"
+					maximum = "0.3".toBigDecimal()
+				}
+			}
 		}
 	}
 
 	jacoco {
 		toolVersion = "0.8.5"
+		reportsDir = file("$buildDir/customJacocoReportDir")
+	}
+
+	jacocoTestReport {
+		dependsOn(test) // tests are required to run before generating the report
 	}
 
 	jacocoTestReport {
 		reports {
 			xml.isEnabled = true
 			csv.isEnabled = false
-			html.destination = file("$buildDir/reports/jacocoHtml")
+			html.destination = file("${buildDir}/jacocoHtml")
 		}
 	}
 
