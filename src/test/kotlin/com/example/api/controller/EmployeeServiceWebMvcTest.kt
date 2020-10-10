@@ -1,11 +1,9 @@
 package com.example.api.controller
 
-import com.example.api.security.SecurityConfiguration
 import com.example.api.service.EmployeeService
 import com.example.api.utils.faker.EmployeeFaker
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
-import org.apache.catalina.User
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
